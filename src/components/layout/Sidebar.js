@@ -5,6 +5,8 @@ import { FiUsers } from 'react-icons/fi';
 import { BsCalendar3, BsChatDots } from 'react-icons/bs';
 // import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { TbReport } from 'react-icons/tb';
+import { FaUserTie } from 'react-icons/fa';
 
 const Sidebar = ({ collapsed, userData }) => {
 	const router = useRouter();
@@ -34,6 +36,22 @@ const Sidebar = ({ collapsed, userData }) => {
 									<div>
 										<FiUsers />
 										<span>المستخدمون</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Reports' ? 'active' : ''}>
+								<Link href="/Reports">
+									<div>
+										<TbReport />
+										<span>البلاغات</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Companies' ? 'active' : ''}>
+								<Link href="/Companies">
+									<div>
+										<FaUserTie />
+										<span>شركات</span>
 									</div>
 								</Link>
 							</li>
