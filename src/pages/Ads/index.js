@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 
 import { AdminLayout } from '@/components/layout';
-import { UserTable, CreateUser } from '@/components/Users';
+import { AdsTable, CreateAds } from '@/components/ads';
 import { Header, Modal } from '@/components/UI';
 
 const Ads = () => {
@@ -14,15 +14,15 @@ const Ads = () => {
 			<AdminLayout>
 				<div className="dashboard">
 					<Header title="اعلانات" />
-					{/* <UserTable />
+					<AdsTable />
 
 					<Modal title="أضافة المستخدم" isOpen={isOpen} onClose={onClose} btnRef={btnRef}>
-						<CreateUser />
+						<CreateAds />
 					</Modal>
 
 					<button className="btn btn-info" ref={btnRef} onClick={onOpen}>
-						أضافة المستخدم
-					</button> */}
+						أضافة الاعلان
+					</button>
 				</div>
 			</AdminLayout>
 		</>

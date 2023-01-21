@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
@@ -12,7 +13,12 @@ import { FiEye } from 'react-icons/fi';
 
 import { db } from '@/middleware/firebase';
 
-import EditCompany from '../EditCompany';
+import EditAds from '../EditAds';
+
+// Custom Cell  for image column
+const CustomCellImage = ({ value }) => {
+	return <Image src="/assets/image/Housing.png" alt="company" width={30} height={30} />;
+};
 
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
@@ -31,8 +37,8 @@ const CustomCellControle = ({ value }) => {
 	// handler Delete element
 	const handleDelete = async (id) => {
 		try {
-			if (confirm('هل انت متاكد تريد حدف شركة ؟')) {
-				const document = doc(db, 'companies', id);
+			if (confirm('هل انت متاكد تريد حدف اعلان ؟')) {
+				const document = doc(db, 'ads', id);
 				await deleteDoc(document);
 
 				setTimeout(() => {
@@ -51,28 +57,28 @@ const CustomCellControle = ({ value }) => {
 					<CgMenuRound fontSize="1.8em" />
 				</MenuButton>
 				<MenuList>
-					<Link href={`/Companies/${value}`}>
+					<Link href={`/Ads/${value}`}>
 						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
-							عرض الشركة
+							عرض اعلان
 						</MenuItem>
 					</Link>
 					<MenuItem
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
 						onClick={() => handleModalUpdate(isActiveModel, value)}
 					>
-						تعديل الشركة
+						تعديل اعلان
 					</MenuItem>
 					<MenuItem
 						icon={<MdDelete fontSize="1.8em" color="#333" />}
 						onClick={() => handleDelete(value)}
 					>
-						حدف الشركة
+						حدف اعلان
 					</MenuItem>
 				</MenuList>
 			</Menu>
 			{getId && (
 				<>
-					<EditCompany
+					<EditAds
 						activeModel={isActiveModel}
 						closeModel={handleModalUpdate}
 						getId={getId}
@@ -87,26 +93,20 @@ const CustomCellControle = ({ value }) => {
 export const tablePropsInit = {
 	columns: [
 		{
-			key: 'name',
-			title: 'اسم المستخدم',
+			key: 'image',
+			title: 'الصورة',
+			dataType: DataType.String,
+			style: { width: 150 },
+		},
+		{
+			key: 'title',
+			title: 'العنوان',
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
 		{
-			key: 'city',
-			title: 'المدينة',
-			dataType: DataType.String,
-			style: { width: 200 },
-		},
-		{
-			key: 'numberOfOrederFiexd',
-			title: 'عدد بلاغات تم اصلاحها',
-			dataType: DataType.Number,
-			style: { width: 200 },
-		},
-		{
-			key: 'phone',
-			title: 'رقم الهاتف',
+			key: 'date',
+			title: 'التاريخ',
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
@@ -131,8 +131,8 @@ export const tablePropsInit = {
 		cellText: {
 			content: (props) => {
 				switch (props.column.key) {
-					// case 'role':
-					// 	return <CustomCellRole {...props} />;
+					case 'image':
+						return <CustomCellImage {...props} />;
 					case 'id':
 						return <CustomCellControle {...props} />;
 					// case 'password':
