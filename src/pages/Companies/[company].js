@@ -38,7 +38,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 					<div className="d-flex justify-content-center mb-2">
 						<Image
 							src="/assets/image/company.png"
-							alt="company.name"
+							alt={company.name}
 							width={200}
 							height={200}
 						/>

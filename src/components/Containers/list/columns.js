@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
@@ -12,7 +13,12 @@ import { FiEye } from 'react-icons/fi';
 
 import { db } from '@/middleware/firebase';
 
-import EditCompany from '../EditCompany';
+import EditContainer from '../EditContainer';
+
+// Custom Cell  for image column
+const CustomCellImage = ({ value }) => {
+	return <Image src="/assets/image/Housing.png" alt="company" width={30} height={30} />;
+};
 
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
@@ -36,8 +42,8 @@ const CustomCellControle = ({ value }) => {
 	// handler Delete element
 	const handleDelete = async (id) => {
 		try {
-			if (confirm('هل انت متاكد تريد حدف شركة ؟')) {
-				const document = doc(db, 'companies', id);
+			if (confirm('هل انت متاكد تريد حدف الحاوية ؟')) {
+				const document = doc(db, 'containers', id);
 				await deleteDoc(document);
 
 				setTimeout(() => {
@@ -56,28 +62,28 @@ const CustomCellControle = ({ value }) => {
 					<CgMenuRound fontSize="1.8em" />
 				</MenuButton>
 				<MenuList>
-					<Link href={`/Companies/${value}`}>
+					<Link href={`/Containers/${value}`}>
 						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
-							عرض الشركة
+							عرض الحاوية
 						</MenuItem>
 					</Link>
 					<MenuItem
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
 						onClick={() => handleModalUpdate(isActiveModel, value)}
 					>
-						تعديل الشركة
+						تعديل الحاوية
 					</MenuItem>
 					<MenuItem
 						icon={<MdDelete fontSize="1.8em" color="#333" />}
 						onClick={() => handleDelete(value)}
 					>
-						حدف الشركة
+						حدف الحاوية
 					</MenuItem>
 				</MenuList>
 			</Menu>
 			{getId && (
 				<>
-					<EditCompany
+					<EditContainer
 						activeModel={isActiveModel}
 						closeModel={handleModal}
 						getId={getId}
@@ -92,8 +98,8 @@ const CustomCellControle = ({ value }) => {
 export const tablePropsInit = {
 	columns: [
 		{
-			key: 'name',
-			title: 'اسم المستخدم',
+			key: 'image',
+			title: 'الصورة',
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
@@ -104,14 +110,8 @@ export const tablePropsInit = {
 			style: { width: 200 },
 		},
 		{
-			key: 'numberOfOrederFiexd',
-			title: 'عدد بلاغات تم اصلاحها',
-			dataType: DataType.Number,
-			style: { width: 200 },
-		},
-		{
-			key: 'phone',
-			title: 'رقم الهاتف',
+			key: 'address',
+			title: 'العنوان',
 			dataType: DataType.String,
 			style: { width: 200 },
 		},
@@ -136,8 +136,8 @@ export const tablePropsInit = {
 		cellText: {
 			content: (props) => {
 				switch (props.column.key) {
-					// case 'role':
-					// 	return <CustomCellRole {...props} />;
+					case 'image':
+						return <CustomCellImage {...props} />;
 					case 'id':
 						return <CustomCellControle {...props} />;
 					// case 'password':

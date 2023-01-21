@@ -1,12 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AiOutlineDashboard, AiOutlineFileText } from 'react-icons/ai';
-import { FiUsers } from 'react-icons/fi';
-import { BsCalendar3, BsChatDots } from 'react-icons/bs';
+import { AiOutlineDashboard } from 'react-icons/ai';
+import { FiTruck, FiUsers } from 'react-icons/fi';
+import { BsBuilding, BsHeadset, BsNewspaper } from 'react-icons/bs';
 // import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { TbReport } from 'react-icons/tb';
-import { FaUserTie } from 'react-icons/fa';
 
 const Sidebar = ({ collapsed, userData }) => {
 	const router = useRouter();
@@ -50,8 +49,32 @@ const Sidebar = ({ collapsed, userData }) => {
 							<li className={router.pathname == '/Companies' ? 'active' : ''}>
 								<Link href="/Companies">
 									<div>
-										<FaUserTie />
+										<BsBuilding />
 										<span>شركات</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Containers' ? 'active' : ''}>
+								<Link href="/Containers">
+									<div>
+										<FiTruck />
+										<span>الحاويات</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Ads' ? 'active' : ''}>
+								<Link href="/Ads">
+									<div>
+										<BsNewspaper />
+										<span>الاعلانات</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Services' ? 'active' : ''}>
+								<Link href="/Services">
+									<div>
+										<BsHeadset />
+										<span>خدمة العملاء</span>
 									</div>
 								</Link>
 							</li>

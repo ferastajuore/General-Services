@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import { Modal2, Button, Spinner } from '@/components/UI';
 import { db } from '@/middleware/firebase';
 
-const EditCompany = ({ activeModel, closeModel, getId }) => {
+const EditContainer = ({ activeModel, closeModel, getId }) => {
 	const router = useRouter();
-	const [company, setCompany] = useState({});
+	const [container, setContainer] = useState({});
 	const [massage, setMassage] = useState({
 		status: '',
 		text: '',
@@ -17,10 +17,10 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 	useEffect(() => {
 		// Get company by id
 		const getData = async () => {
-			const docRef = doc(db, 'companies', getId);
+			const docRef = doc(db, 'containers', getId);
 			const docSnap = await getDoc(docRef);
 
-			setCompany(docSnap.data());
+			setContainer(docSnap.data());
 		};
 		getData();
 	}, []);
@@ -28,7 +28,7 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 	// Handler Change
 	const handleChange = (e) => {
 		const { name, value } = e.target;
-		setCompany({ ...company, [name]: value });
+		setContainer({ ...container, [name]: value });
 	};
 
 	// handler Submit
@@ -36,10 +36,10 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 		e.preventDefault();
 
 		try {
-			const updateCompany = doc(db, 'companies', getId);
-			await updateDoc(updateCompany, company);
+			const updateContainer = doc(db, 'containers', getId);
+			await updateDoc(updateContainer, container);
 
-			setMassage({ status: 'success', text: 'تم تعديل مستخدم بنجاح' });
+			setMassage({ status: 'success', text: 'تم تعديل الحاوية بنجاح' });
 
 			setTimeout(() => {
 				router.reload();
@@ -50,7 +50,7 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 		}
 	};
 
-	return !_.isEmpty(company) ? (
+	return !_.isEmpty(container) ? (
 		<Modal2 title="تعديل الشركة" isActive={activeModel} isClosed={closeModel}>
 			{massage.status === 'success' && (
 				<div className="alert alert-success text-center">{massage.text}</div>
@@ -58,86 +58,6 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 
 			<form onSubmit={handleSubmit}>
 				<div className="row">
-					<div className="col-sm-6">
-						<div className="form-group mb-2">
-							<label htmlFor="name" className="form-label float-end">
-								اسم الشركة
-							</label>
-							<div className="input-group">
-								<input
-									type="text"
-									className="form-control"
-									id="name"
-									name="name"
-									placeholder="ادخل اسم"
-									value={company.name}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div className="col-sm-6">
-						<div className="form-group mb-2">
-							<label htmlFor="description" className="form-label float-end">
-								وصف الشركة
-							</label>
-							<div className="input-group">
-								<input
-									type="text"
-									className="form-control"
-									id="description"
-									name="description"
-									placeholder="ادخل وصف"
-									value={company.description}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div className="col-sm-6">
-						<div className="form-group mb-2">
-							<label htmlFor="email" className="form-label float-end">
-								البريد الالكتروني
-							</label>
-							<div className="input-group">
-								<input
-									type="email"
-									className="form-control"
-									id="email"
-									name="email"
-									placeholder="ادخل البريد الالكتروني"
-									value={company.email}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div className="col-sm-6">
-						<div className="form-group mb-2">
-							<label htmlFor="phone" className="form-label float-end">
-								رقم الهاتف
-							</label>
-							<div className="input-group">
-								<input
-									type="text"
-									className="form-control"
-									id="phone"
-									name="phone"
-									placeholder="ادخل رقم الهاتف"
-									value={company.phone}
-									onChange={handleChange}
-									required
-								/>
-							</div>
-						</div>
-					</div>
-
 					<div className="col-sm-6">
 						<div className="form-group mb-2">
 							<label htmlFor="city" className="form-label float-end">
@@ -150,7 +70,47 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 									id="city"
 									name="city"
 									placeholder="ادخل المدينة"
-									value={company.city}
+									value={container.city}
+									onChange={handleChange}
+									required
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div className="col-sm-6">
+						<div className="form-group mb-2">
+							<label htmlFor="address" className="form-label float-end">
+								العنوان
+							</label>
+							<div className="input-group">
+								<input
+									type="text"
+									className="form-control"
+									id="address"
+									name="address"
+									placeholder="ادخل العنوان"
+									onChange={handleChange}
+									value={container.address}
+									required
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div className="col-sm-6">
+						<div className="form-group mb-2">
+							<label htmlFor="location" className="form-label float-end">
+								الاحداثيات
+							</label>
+							<div className="input-group">
+								<input
+									type="text"
+									className="form-control"
+									id="location"
+									name="location"
+									placeholder="ادخل الاحداثيات"
+									value={container.location}
 									onChange={handleChange}
 									required
 								/>
@@ -184,4 +144,4 @@ const EditCompany = ({ activeModel, closeModel, getId }) => {
 	);
 };
 
-export default EditCompany;
+export default EditContainer;
