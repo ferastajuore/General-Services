@@ -8,13 +8,13 @@ import { tablePropsInit } from './columns';
 // import { CardSub } from '@UI/Cards/index';
 
 const AdsTable = () => {
-	const [ads, setContainers] = useState([]);
+	const [ads, setAds] = useState([]);
 	const collectionRef = collection(db, 'ads');
 
 	useEffect(() => {
 		const getAllContainers = async () => {
 			const data = await getDocs(collectionRef);
-			setContainers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+			setAds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
 		getAllContainers();
 	}, []);

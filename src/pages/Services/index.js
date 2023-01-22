@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 
 import { AdminLayout } from '@/components/layout';
-import { UserTable, CreateUser } from '@/components/Users';
+import { ServicesTable } from '@/components/Services';
 import { Header, Modal } from '@/components/UI';
 
 const Services = () => {
@@ -14,15 +14,7 @@ const Services = () => {
 			<AdminLayout>
 				<div className="dashboard">
 					<Header title="خدمة العملاء" />
-					{/* <UserTable />
-
-					<Modal title="أضافة المستخدم" isOpen={isOpen} onClose={onClose} btnRef={btnRef}>
-						<CreateUser />
-					</Modal>
-
-					<button className="btn btn-info" ref={btnRef} onClick={onOpen}>
-						أضافة المستخدم
-					</button> */}
+					<ServicesTable />
 				</div>
 			</AdminLayout>
 		</>
