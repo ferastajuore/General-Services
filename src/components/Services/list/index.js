@@ -13,7 +13,8 @@ const ServicesTable = () => {
 
 	useEffect(() => {
 		const getAllContainers = async () => {
-			const q = query(collectionRef, where('sender', '!=', 'admin'));
+			// const q = query(collectionRef, where('sender', '!=', 'admin'));
+			const q = query(collectionRef);
 			const data = await getDocs(q);
 			setServices(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};

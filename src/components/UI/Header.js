@@ -1,8 +1,8 @@
 import React from 'react';
 
-const HeaderTitle = ({ title }) => {
+const HeaderTitle = ({ title, className = 'text-center' }) => {
 	return (
-		<div className="mb-3 text-center headerTitle">
+		<div className={`mb-3 ${className}  headerTitle`}>
 			<h2>{title}</h2>
 		</div>
 	);

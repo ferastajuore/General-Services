@@ -35,27 +35,12 @@ const Messages = () => {
 				id: doc.id,
 			}));
 			setMessages(data);
+			setStatus(data[0].status);
 		});
 
 		// Detach listener
 		return unsubscribe;
 	}, []);
-
-	// useEffect(() => {
-	// 	if (router.query.messages !== undefined) {
-	// 		// Get company by id
-	// 		const getData = async () => {
-	// 			const docRef = doc(db, 'services', router.query.messages);
-
-	// 			onSnapshot(docRef, (docSnap) => {
-	// 				console.log(docSnap.data());
-	// 				setMessages(docSnap.data());
-	// 				setStatus(docSnap.data().status);
-	// 			});
-	// 		};
-	// 		getData();
-	// 	}
-	// }, [router.query.messages]);
 
 	// Handle Status
 	const handleStatus = async (status) => {
@@ -95,7 +80,7 @@ const Messages = () => {
 	return !_.isEmpty(messages) ? (
 		<AdminLayout>
 			<div className="card">
-				{/* <div
+				<div
 					className={`card-header d-flex ${
 						status === 0 ? 'justify-content-end' : 'justify-content-start'
 					}`}
@@ -111,22 +96,7 @@ const Messages = () => {
 							</button>
 						)) ||
 						(status === 2 && <p className="h5 text-danger">تم انهاء الخدمة</p>)}
-				</div> */}
-
-				{/* <div className="card-body">
-					<div
-						className="message-reseved p-3 mb-2 text-white rounded-start-2"
-						style={{ width: '30%', backgroundColor: '#03213d' }}
-					>
-						{messages.text}
-					</div>
-					<div
-						className="message-sender float-end text-end p-3 mb-2 text-white rounded-start-2"
-						style={{ width: '30%', backgroundColor: '#1484a0cf' }}
-					>
-						{messages.text}
-					</div>
-				</div> */}
+				</div>
 
 				<div className="card-body">
 					{messages.map((msg) => (
@@ -153,12 +123,12 @@ const Messages = () => {
 							placeholder="ارسال رسالة ..."
 							onChange={(e) => setCreateMessage(e.target.value)}
 							value={createMessage}
-							disabled={status !== 1 && true}
+							disabled={status !== 0 && true}
 						/>
 						<button
 							className="btn btn-info"
 							onClick={handleSenderMessage}
-							disabled={status !== 1 && true}
+							disabled={status !== 0 && true}
 						>
 							ارسال
 						</button>

@@ -7,8 +7,6 @@ import { useRouter } from 'next/router';
 import { db } from '@/middleware/firebase';
 import { Button } from '@/components/UI';
 
-// import EditAds from '../EditAds';
-
 // Custom cell for statis column
 const CustomCellStatus = ({ value }) => {
 	return (
@@ -29,10 +27,6 @@ const CustomCellStatus = ({ value }) => {
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
 	const router = useRouter();
-
-	// useState
-	const [isActiveModel, setIsActiveModel] = useState(false);
-	const [getId, setGetId] = useState('');
 
 	// handler Delete element
 	const handleDelete = async (id) => {

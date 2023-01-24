@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { useState, useEffect } from 'react';
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from 'firebase/firestore';
 import { BsPencil, BsTrash } from 'react-icons/bs';
 import { FcCheckmark } from 'react-icons/fc';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -14,7 +14,8 @@ const Sections = () => {
 		text: '',
 	});
 	const [sections, setSections] = useState([]);
-	const [fildActive, setFildActive] = useState(false);
+	const [fildActive, setFildActive] = useState('');
+	const [updateData, setUpdateData] = useState('');
 	const usersCollectionRef = collection(db, 'sections');
 
 	useEffect(() => {
@@ -41,12 +42,39 @@ const Sections = () => {
 		}
 	};
 
-	const fildHandler = (active) => {
-		setFildActive(!active);
-	};
-
 	// fucntion update section
-	const updateSection = async (id) => {};
+	const updateSection = async (id, data) => {
+		// setFildActive(id);
+		console.log(data);
+
+		try {
+			const updateReport = doc(db, 'sections', id);
+			await updateDoc(updateReport, {
+				name: data,
+			});
+
+			setTimeout(() => {
+				setFildActive('');
+				setMassage('');
+			}, 2000);
+
+			setSender(companyId);
+		} catch (err) {
+			console.log(err);
+		}
+		try {
+			const updateData = doc(db, 'sections', id);
+			await updateDoc(updateData, { name: updateData });
+			setMassage({ status: 'success', text: 'تم تحديت قسم بنجاح' });
+
+			setTimeout(() => {
+				setFildActive('');
+				setMassage('');
+			}, 2000);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	// fucntion delete section
 	const deleteSection = async (id) => {
@@ -108,44 +136,24 @@ const Sections = () => {
 											key={data ? data.id : i}
 											className="list-group-item d-flex justify-content-between align-items-start"
 										>
-											{!fildActive ? (
-												<>
-													<div>
-														<div className="fw-bold">{data.name}</div>
-													</div>
+											<>
+												<div>
+													<div className="fw-bold">{data.name}</div>
+												</div>
 
-													<div className="d-flex flex-row-reverse">
-														<BsTrash
-															fontSize="1.2rem"
-															color="#d42a3b"
-															onClick={() => deleteSection(data.id)}
-														/>
-														<BsPencil
-															fontSize="1.2rem"
-															color="#21be75"
-															onClick={() => fildHandler(fildActive)}
-														/>
-													</div>
-												</>
-											) : (
-												<div className="d-flex justify-content-between align-items-center" style={{width: '100%'}}>
-													<input
-														type="text"
-														className="form-control"
-														placeholder="اضافة قسم"
-														value={addSection}
-														onChange={(e) =>
-															setAddSection(e.target.value)
-														}
-													/>
-													<FcCheckmark fontSize="1.2rem" />
-													<AiOutlineClose
+												<div className="d-flex flex-row-reverse">
+													<BsTrash
 														fontSize="1.2rem"
 														color="#d42a3b"
-														onClick={() => fildHandler(fildActive)}
+														onClick={() => deleteSection(data.id)}
 													/>
+													{/* <BsPencil
+															fontSize="1.2rem"
+															color="#21be75"
+															onClick={() => setFildActive(data.id)}
+														/> */}
 												</div>
-											)}
+											</>
 										</li>
 									))
 								) : (
@@ -165,9 +173,33 @@ const Sections = () => {
 
 export default Sections;
 
-{
-	/* <li className="list-group-item">مخلفات البناء</li>
-								<li className="list-group-item">مخلفات حرب</li>
-								<li className="list-group-item">حوادت سبارات</li>
-								<li className="list-group-item">مخلفات حرب</li> */
-}
+//{fildActive !== data.id ? (
+// ) : (
+// 	<div
+// 		className="d-flex justify-content-between align-items-center"
+// 		style={{ width: '100%' }}
+// 	>
+// 		<input
+// 			type="text"
+// 			className="form-control"
+// 			placeholder="اضافة قسم"
+// 			value={updateData}
+// 			onChange={(e) =>
+// 				setUpdateData(e.target.value)
+// 			}
+// 		/>
+// 		<button
+// 			onClick={() =>
+// 				updateSection(data.id, updateData)
+// 			}
+// 		>
+// 			<FcCheckmark fontSize="1.2rem" />
+// 		</button>
+// 		<AiOutlineClose
+// 			fontSize="1.2rem"
+// 			color="#d42a3b"
+// 			onClick={() => setFildActive('')}
+// 		/>
+// 	</div>
+// )}
+//</li>
