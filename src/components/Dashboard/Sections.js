@@ -14,8 +14,6 @@ const Sections = () => {
 		text: '',
 	});
 	const [sections, setSections] = useState([]);
-	const [fildActive, setFildActive] = useState('');
-	const [updateData, setUpdateData] = useState('');
 	const usersCollectionRef = collection(db, 'sections');
 
 	useEffect(() => {

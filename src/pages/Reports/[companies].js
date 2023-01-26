@@ -1,6 +1,14 @@
 import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	serverTimestamp,
+	updateDoc,
+} from 'firebase/firestore';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -11,7 +19,9 @@ import { AdminLayout } from '@/components/layout';
 const ViewCompany = () => {
 	const { query } = useRouter();
 	const [companies, setCompanies] = useState([]);
+	const [report, setReport] = useState({});
 	const [sender, setSender] = useState(null);
+	const NotCollectionRef = collection(db, 'notifications');
 	const companiesCollectionRef = collection(db, 'companies');
 
 	useEffect(() => {
@@ -20,6 +30,17 @@ const ViewCompany = () => {
 			setCompanies(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
 		getAllCompanies();
+
+		if (query.companies !== undefined) {
+			// Get company by id
+			const getData = async () => {
+				const docRef = doc(db, 'reporting-service', query.companies);
+				const docSnap = await getDoc(docRef);
+
+				setReport(docSnap.data());
+			};
+			getData();
+		}
 	}, []);
 
 	// Handler Sender
@@ -28,6 +49,14 @@ const ViewCompany = () => {
 			const updateReport = doc(db, 'reporting-service', queryId);
 			await updateDoc(updateReport, {
 				assignedCompany: companyName,
+				companyId,
+			});
+
+			// Add Notifications
+			await addDoc(NotCollectionRef, {
+				title: report.title,
+				reportId: queryId,
+				date: serverTimestamp(),
 			});
 
 			setSender(companyId);

@@ -11,94 +11,34 @@ import { useRouter } from 'next/router';
 import { FiEye } from 'react-icons/fi';
 
 import { db } from '@/middleware/firebase';
+import { Button } from '@/components/UI';
 
 // Custom cell for statis column
 const CustomCellStatus = ({ value }) => {
 	return (
-		<div
-			className={`h5 btn ${
-				(value === 0 && 'btn-success') ||
-				(value === 1 && 'btn-warning') ||
-				(value === 2 && 'btn-danger')
-			}`}
-		>
-			{(value === 0 && 'تم قبول') ||
-				(value === 1 && 'قيد الانتظار') ||
-				(value === 2 && 'رفض')}
+		<div className="d-flex justify-content-around">
+			<div
+				className={`h5 btn ${
+					(value === 0 && 'btn-success') ||
+					(value === 1 && 'btn-warning') ||
+					(value === 2 && 'btn-danger')
+				}`}
+			>
+				{(value === 0 && 'تم قبول') ||
+					(value === 1 && 'قيد الانتظار') ||
+					(value === 2 && 'رفض')}
+			</div>
+			{value !== 0 && (
+				<Link href={`/Reports/${value}`}>
+					<Button
+						title="تعين شركة"
+						style={{ backgroundColor: '#03213d', color: '#FFF' }}
+					/>
+				</Link>
+			)}
 		</div>
 	);
 };
-
-// import EditCompany from '../EditCompany';
-
-// Custom cell for controle column
-// const CustomCellControle = ({ value }) => {
-// 	const router = useRouter();
-
-// 	// useState
-// 	const [isActiveModel, setIsActiveModel] = useState(false);
-// 	const [getId, setGetId] = useState('');
-
-// 	// handle modal or update
-// 	const handleModalUpdate = (isAcitve, id) => {
-// 		setGetId(id);
-// 		setIsActiveModel(!isAcitve);
-// 	};
-
-// 	// handler Delete element
-// 	const handleDelete = async (id) => {
-// 		try {
-// 			if (confirm('هل انت متاكد تريد حدف شركة ؟')) {
-// 				const document = doc(db, 'companies', id);
-// 				await deleteDoc(document);
-
-// 				setTimeout(() => {
-// 					router.reload();
-// 				}, 1000);
-// 			}
-// 		} catch (err) {
-// 			console.log(err);
-// 		}
-// 	};
-
-// 	return (
-// 		<>
-// 			<Menu>
-// 				<MenuButton>
-// 					<CgMenuRound fontSize="1.8em" />
-// 				</MenuButton>
-// 				<MenuList>
-// 					<Link href={`/Companies/${value}`}>
-// 						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
-// 							عرض الشركة
-// 						</MenuItem>
-// 					</Link>
-// 					<MenuItem
-// 						icon={<TbEdit fontSize="1.8em" color="#333" />}
-// 						onClick={() => handleModalUpdate(isActiveModel, value)}
-// 					>
-// 						تعديل الشركة
-// 					</MenuItem>
-// 					<MenuItem
-// 						icon={<MdDelete fontSize="1.8em" color="#333" />}
-// 						onClick={() => handleDelete(value)}
-// 					>
-// 						حدف الشركة
-// 					</MenuItem>
-// 				</MenuList>
-// 			</Menu>
-// 			{getId && (
-// 				<>
-// 					<EditCompany
-// 						activeModel={isActiveModel}
-// 						closeModel={handleModalUpdate}
-// 						getId={getId}
-// 					/>
-// 				</>
-// 			)}
-// 		</>
-// 	);
-// };
 
 // Table Props options
 export const tablePropsInit = {
@@ -137,7 +77,7 @@ export const tablePropsInit = {
 			key: 'status',
 			title: 'حالة البلاغ',
 			dataType: DataType.Number,
-			style: { width: 200 },
+			style: { width: 280 },
 		},
 		// {
 		// 	key: 'id',
