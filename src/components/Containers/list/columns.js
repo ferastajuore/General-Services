@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
+import { Menu, MenuList, MenuItem, MenuButton, useDisclosure } from '@chakra-ui/react';
 import { CgMenuRound } from 'react-icons/cg';
 import { TbEdit } from 'react-icons/tb';
 import { MdDelete } from 'react-icons/md';
@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { FiEye } from 'react-icons/fi';
 
 import { db } from '@/middleware/firebase';
+import { Modal } from '@/components/UI';
 
 import EditContainer from '../EditContainer';
 
@@ -23,20 +24,15 @@ const CustomCellImage = ({ value }) => {
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
 	const router = useRouter();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	// useState
-	const [isActiveModel, setIsActiveModel] = useState(false);
 	const [getId, setGetId] = useState('');
 
 	// handle modal or update
-	const handleModalUpdate = (isAcitve, id) => {
-		setGetId(id);
-		setIsActiveModel(!isAcitve);
-	};
-
 	const handleModal = (isAcitve, id) => {
 		setGetId(id);
-		// setIsActiveModel(!isAcitve);
+		onOpen(isAcitve);
 	};
 
 	// handler Delete element
@@ -69,7 +65,7 @@ const CustomCellControle = ({ value }) => {
 					</Link>
 					<MenuItem
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
-						onClick={() => handleModalUpdate(isActiveModel, value)}
+						onClick={() => handleModal(onOpen, value)}
 					>
 						تعديل الحاوية
 					</MenuItem>
@@ -83,11 +79,9 @@ const CustomCellControle = ({ value }) => {
 			</Menu>
 			{getId && (
 				<>
-					<EditContainer
-						activeModel={isActiveModel}
-						closeModel={handleModal}
-						getId={getId}
-					/>
+					<Modal title="تعديل الحاوية" isOpen={isOpen} onClose={onClose}>
+						<EditContainer getId={getId} />
+					</Modal>
 				</>
 			)}
 		</>

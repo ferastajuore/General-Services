@@ -46,7 +46,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="name" className="form-label float-end">
+								<label htmlFor="name" className="form-label">
 									اسم الشركة
 								</label>
 								<div className="input-group">
@@ -67,28 +67,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="description" className="form-label float-end">
-									وصف الشركة
-								</label>
-								<div className="input-group">
-									<input
-										type="text"
-										className="form-control"
-										id="description"
-										name="description"
-										placeholder="ادخل وصف"
-										value={company.description}
-										onChange={handleChange}
-										required
-										disabled
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div className="col-sm-6">
-							<div className="form-group mb-2">
-								<label htmlFor="email" className="form-label float-end">
+								<label htmlFor="email" className="form-label">
 									البريد الالكتروني
 								</label>
 								<div className="input-group">
@@ -109,7 +88,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="phone" className="form-label float-end">
+								<label htmlFor="phone" className="form-label">
 									رقم الهاتف
 								</label>
 								<div className="input-group">
@@ -130,7 +109,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="city" className="form-label float-end">
+								<label htmlFor="city" className="form-label">
 									المدينة
 								</label>
 								<div className="input-group">
@@ -146,6 +125,22 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 										disabled
 									/>
 								</div>
+							</div>
+						</div>
+
+						<div className="col-sm-6">
+							<div className="form-group mb-2">
+								<label htmlFor="description" className="form-label">
+									اقسام الشركة
+								</label>
+
+								<ul className="list-group">
+									{company.description.map((data) => (
+										<li key={data.value} className="list-group-item">
+											{data.label}
+										</li>
+									))}
+								</ul>
 							</div>
 						</div>
 					</div>

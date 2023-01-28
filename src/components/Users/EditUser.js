@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
-import { Modal2, Button, Spinner } from '@/components/UI';
+import { Button, Spinner } from '@/components/UI';
 import { db } from '@/middleware/firebase';
 
-const EditUser = ({ activeModel, closeModel, getId }) => {
+const EditUser = ({ getId }) => {
 	const router = useRouter();
 	const [user, setUser] = useState({});
 	const [massage, setMassage] = useState({
@@ -39,7 +39,6 @@ const EditUser = ({ activeModel, closeModel, getId }) => {
 			const updateUser = doc(db, 'users', getId);
 			await updateDoc(updateUser, user);
 
-			console.log(updateUser);
 			setMassage({ status: 'success', text: 'تم تعديل مستخدم بنجاح' });
 
 			setTimeout(() => {
@@ -52,14 +51,14 @@ const EditUser = ({ activeModel, closeModel, getId }) => {
 	};
 
 	return !_.isEmpty(user) ? (
-		<Modal2 title="editUser" isActive={activeModel} isClosed={closeModel}>
+		<>
 			{massage.status === 'success' && (
 				<div className="alert alert-success text-center">{massage.text}</div>
 			)}
 
 			<form onSubmit={handleSubmit}>
 				<div className="form-group mb-2">
-					<label htmlFor="name" className="form-label float-end">
+					<label htmlFor="name" className="form-label">
 						اضافة اسم
 					</label>
 					<div className="input-group">
@@ -77,7 +76,7 @@ const EditUser = ({ activeModel, closeModel, getId }) => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="phone" className="form-label float-end">
+					<label htmlFor="phone" className="form-label">
 						رقم الهاتف
 					</label>
 					<div className="input-group">
@@ -95,7 +94,7 @@ const EditUser = ({ activeModel, closeModel, getId }) => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="city" className="form-label float-end">
+					<label htmlFor="city" className="form-label">
 						المدينة
 					</label>
 					<div className="input-group">
@@ -112,26 +111,9 @@ const EditUser = ({ activeModel, closeModel, getId }) => {
 					</div>
 				</div>
 
-				{/* <div className="form-group mb-2">
-					<label htmlFor="password" className="form-label float-end">
-						كلمة المرور
-					</label>
-					<div className="input-group">
-						<input
-							type="password"
-							className="form-control"
-							id="password"
-							name="password"
-							placeholder="ادخل كلمةالمرور"
-							onChange={handleChange}
-							required
-						/>
-					</div>
-				</div> */}
-
 				<Button title="تعديل المستخدم" className="btn-info mt-2" />
 			</form>
-		</Modal2>
+		</>
 	) : (
 		<Spinner />
 	);

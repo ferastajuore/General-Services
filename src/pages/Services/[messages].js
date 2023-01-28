@@ -10,6 +10,9 @@ import {
 	orderBy,
 	limit,
 	query,
+	getDoc,
+	where,
+	getDocs,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
@@ -20,27 +23,39 @@ import { AdminLayout } from '@/components/layout';
 const Messages = () => {
 	const router = useRouter();
 	const [messages, setMessages] = useState([]);
+	const [numTicket, setNumTicket] = useState(0);
 	const [status, setStatus] = useState(1);
 	const [createMessage, setCreateMessage] = useState('');
 
 	const collectionRef = collection(db, 'services');
-	const q = query(collectionRef, orderBy('date'), limit(100));
 
 	useEffect(() => {
-		// Subscribe to query with onSnapshot
-		const unsubscribe = onSnapshot(q, (querySnapshot) => {
-			// Get all documents from collection - with IDs
-			const data = querySnapshot.docs.map((doc) => ({
-				...doc.data(),
-				id: doc.id,
-			}));
-			setMessages(data);
-			setStatus(data[0].status);
-		});
+		if (router.query.messages !== undefined) {
+			const getMessage = async () => {
+				const document = doc(db, 'services', router.query.messages);
+				const docSnap = await getDoc(document);
+				setNumTicket(docSnap.data().ticket);
 
-		// Detach listener
-		return unsubscribe;
-	}, []);
+				const q = query(
+					collectionRef,
+					orderBy('date'),
+					limit(100),
+					where('ticket', '==', docSnap.data().ticket)
+				);
+
+				onSnapshot(q, (querySnapshot) => {
+					const data = querySnapshot.docs.map((doc) => ({
+						...doc.data(),
+						id: doc.id,
+					}));
+					setMessages(data);
+					setStatus(docSnap.data().status);
+				});
+			};
+
+			getMessage();
+		}
+	}, [router.query.messages]);
 
 	// Handle Status
 	const handleStatus = async (status) => {
@@ -69,6 +84,7 @@ const Messages = () => {
 				sender: 'admin',
 				received: router.query.messages,
 				status: 0,
+				ticket: numTicket,
 			});
 
 			setCreateMessage('');

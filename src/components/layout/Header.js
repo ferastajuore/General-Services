@@ -98,6 +98,7 @@ const Header = ({
 										className="user-avata"
 										size="md"
 										name="Segun Adebayo"
+										src="https://bit.ly/code-beast"
 										// src="/assets/images/team.png"
 									>
 										{/* {socket && <AvatarBadge boxSize="1em" bg="green.500" />} */}

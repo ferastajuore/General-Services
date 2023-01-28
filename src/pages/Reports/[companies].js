@@ -80,8 +80,14 @@ const ViewCompany = () => {
 									className="mb-2"
 								/>
 								<div className="info mb-3">
-									<h4 className="h5 text-center">{data.name}</h4>
-									<p className="text-secondary">{data.description}</p>
+									<h4 className="h5 text-center text-dark">{data.name}</h4>
+									<div className="d-flex">
+										{data.description.map((data) => (
+											<p key={data.value} className="text-secondary">
+												{data.label}
+											</p>
+										))}
+									</div>
 								</div>
 								<Button
 									title={sender !== data.id ? 'ارسال' : 'تم ارسال'}

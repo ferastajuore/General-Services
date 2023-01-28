@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import moment from 'moment/moment';
 
 import { db } from '@/middleware/firebase';
@@ -13,8 +13,8 @@ const ServicesTable = () => {
 
 	useEffect(() => {
 		const getAllContainers = async () => {
-			// const q = query(collectionRef, where('sender', '!=', 'admin'));
-			const q = query(collectionRef);
+			const q = query(collectionRef, where('sender', '!=', 'admin'));
+			// const q = query(collectionRef);
 			const data = await getDocs(q);
 			setServices(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};

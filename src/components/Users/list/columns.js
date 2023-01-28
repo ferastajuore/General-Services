@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
 import { CgMenuRound } from 'react-icons/cg';
 import { TbEdit } from 'react-icons/tb';
 import { MdDelete } from 'react-icons/md';
-import { BiHide, BiShow } from 'react-icons/bi';
 import { DataType, PagingPosition, SortingMode } from 'ka-table/enums';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
@@ -18,15 +16,15 @@ import EditUser from '../EditUser';
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
 	const router = useRouter();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	// useState
-	const [isActiveModel, setIsActiveModel] = useState(false);
 	const [getId, setGetId] = useState('');
 
 	// handle modal or update
 	const handleModal = (isAcitve, id) => {
 		setGetId(id);
-		setIsActiveModel(!isAcitve);
+		onOpen(isAcitve);
 	};
 
 	// handler Delete element
@@ -54,7 +52,7 @@ const CustomCellControle = ({ value }) => {
 				<MenuList>
 					<MenuItem
 						icon={<TbEdit fontSize="1.8em" color="#333" />}
-						onClick={() => handleModal(isActiveModel, value)}
+						onClick={() => handleModal(onOpen, value)}
 					>
 						تعديل المستخدم
 					</MenuItem>
@@ -66,12 +64,11 @@ const CustomCellControle = ({ value }) => {
 					</MenuItem>
 				</MenuList>
 			</Menu>
+
 			{getId && (
-				<EditUser
-					activeModel={isActiveModel}
-					closeModel={handleModal}
-					getId={getId}
-				/>
+				<Modal title="تعديل المستخدم" isOpen={isOpen} onClose={onClose}>
+					<EditUser getId={getId} />
+				</Modal>
 			)}
 		</>
 	);

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
-import { Modal2, Button, Spinner } from '@/components/UI';
+import { Button, Spinner } from '@/components/UI';
 import { db } from '@/middleware/firebase';
 
-const EditAds = ({ activeModel, closeModel, getId }) => {
+const EditAds = ({ getId }) => {
 	const router = useRouter();
 	const [ads, setAds] = useState({});
 	const [massage, setMassage] = useState({
@@ -51,14 +51,14 @@ const EditAds = ({ activeModel, closeModel, getId }) => {
 	};
 
 	return !_.isEmpty(ads) ? (
-		<Modal2 title="تعديل اعلان" isActive={activeModel} isClosed={closeModel}>
+		<>
 			{massage.status === 'success' && (
 				<div className="alert alert-success text-center">{massage.text}</div>
 			)}
 
 			<form onSubmit={handleSubmit}>
 				<div className="form-group mb-2">
-					<label htmlFor="title" className="form-label float-end">
+					<label htmlFor="title" className="form-label">
 						العنوان
 					</label>
 					<div className="input-group">
@@ -76,7 +76,7 @@ const EditAds = ({ activeModel, closeModel, getId }) => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="description" className="form-label float-end">
+					<label htmlFor="description" className="form-label">
 						الوصف
 					</label>
 					<div className="input-group">
@@ -96,7 +96,7 @@ const EditAds = ({ activeModel, closeModel, getId }) => {
 
 				<Button title="تعديل شركة" className="btn-info mt-2" />
 			</form>
-		</Modal2>
+		</>
 	) : (
 		<Spinner />
 	);
