@@ -25,17 +25,12 @@ const Header = ({
 	const [isAcitve, setIsAcitve] = useState(false);
 	const [Logout, setIsLogout] = useState(false);
 
-	// useEffect(() => {
-	// 	if (Logout) {
-	// 		io.on('disconnect', () => {
-	// 			setIsConnected(false);
-	// 		});
-	// 		io.disconnect();
-
-	// 		isLogout();
-	// 		router.push('/Login');
-	// 	}
-	// }, [Logout, isLogout, io]);
+	useEffect(() => {
+		if (Logout) {
+			localStorage.removeItem('auth-user');
+			router.push('/Login');
+		}
+	}, [Logout]);
 
 	return (
 		<>
@@ -104,7 +99,7 @@ const Header = ({
 										{/* {socket && <AvatarBadge boxSize="1em" bg="green.500" />} */}
 									</Avatar>
 									{/* <h4>{userData && userData.name}</h4> */}
-									<h4>user</h4>
+									<h4>{userData?.name}</h4>
 								</div>
 							</MenuButton>
 
@@ -112,7 +107,7 @@ const Header = ({
 								<MenuItem style={{ color: '#000' }}>ملف الشخصي</MenuItem>
 								<MenuItem
 									style={{ color: '#000' }}
-									// onClick={() => setIsLogout(!Logout)}
+									onClick={() => setIsLogout(!Logout)}
 								>
 									الخروج
 								</MenuItem>

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 // import { connect, useDispatch } from 'react-redux';
 // import Cookies from 'js-cookie';
 
@@ -27,6 +27,19 @@ const AdminLayout = ({ children, isLoggedIn }) => {
 	const [direction, setDirection] = useState('RTL');
 	const [loading, setLoading] = useState(true);
 	const [mainHeight, setMainHeight] = useState(0);
+
+	useEffect(() => {
+		const storageData =
+			localStorage.getItem('auth-user') !== null
+				? JSON.parse(localStorage.getItem('auth-user'))
+				: false;
+
+		setUserData(storageData.user);
+
+		if (!storageData.isAuth) {
+			push('/Login');
+		}
+	}, []);
 
 	// useEffect for auth page
 	// useEffect(() => {
@@ -147,7 +160,7 @@ const AdminLayout = ({ children, isLoggedIn }) => {
 			>
 				<Header
 					collapsed={collapsed}
-					// userData={isLoggedIn.user}
+					userData={userData}
 					handleCollapsedChange={handleCollapsedChange}
 					darkMode={darkMode}
 					handleDarkMode={handleDarkMode}

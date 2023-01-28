@@ -50,7 +50,7 @@ const CreateUser = () => {
 
 			<form onSubmit={handleSubmit}>
 				<div className="form-group mb-2">
-					<label htmlFor="name" className="form-label float-end">
+					<label htmlFor="name" className="form-label">
 						اضافة اسم
 					</label>
 					<div className="input-group">
@@ -67,7 +67,7 @@ const CreateUser = () => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="phone" className="form-label float-end">
+					<label htmlFor="phone" className="form-label">
 						رقم الهاتف
 					</label>
 					<div className="input-group">
@@ -84,7 +84,7 @@ const CreateUser = () => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="city" className="form-label float-end">
+					<label htmlFor="city" className="form-label">
 						المدينة
 					</label>
 					<div className="input-group">
@@ -101,7 +101,7 @@ const CreateUser = () => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="password" className="form-label float-end">
+					<label htmlFor="password" className="form-label">
 						كلمة المرور
 					</label>
 					<div className="input-group">
