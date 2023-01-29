@@ -37,7 +37,7 @@ const ViewContainer = () => {
 				<div className="card-body">
 					<div className="d-flex justify-content-center mb-2">
 						<Image
-							src="/assets/image/Housing.png"
+							src={container.image}
 							alt={container.city}
 							width={150}
 							height={150}

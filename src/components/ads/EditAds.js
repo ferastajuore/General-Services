@@ -2,12 +2,18 @@ import _ from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 import { Button, Spinner } from '@/components/UI';
-import { db } from '@/middleware/firebase';
+import { db, storage } from '@/middleware/firebase';
 
 const EditAds = ({ getId }) => {
 	const router = useRouter();
+
+	// useState
+	const [imageUpload, setImageUpload] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const [ads, setAds] = useState({});
 	const [massage, setMassage] = useState({
 		status: '',
@@ -36,14 +42,24 @@ const EditAds = ({ getId }) => {
 		e.preventDefault();
 
 		try {
+			setIsLoading(true);
+
+			if (imageUpload === null) return;
+
+			const imageRef = ref(storage, `ads/${imageUpload.name + v4()}`);
+
+			await uploadBytes(imageRef, imageUpload);
+			const getURL = await getDownloadURL(imageRef);
+
 			const updateAds = doc(db, 'ads', getId);
-			await updateDoc(updateAds, { ...ads, date: serverTimestamp() });
+			await updateDoc(updateAds, { ...ads, date: serverTimestamp(), image: getURL });
 
 			setMassage({ status: 'success', text: 'تم تعديل اعلان بنجاح' });
 
 			setTimeout(() => {
 				router.reload();
 				closeModel(activeModel);
+				setIsLoading(false);
 			}, 2000);
 		} catch (err) {
 			console.log(err);
@@ -76,6 +92,24 @@ const EditAds = ({ getId }) => {
 				</div>
 
 				<div className="form-group mb-2">
+					<label htmlFor="image" className="form-label">
+						تحميل الصورة
+					</label>
+					<div className="input-group">
+						<input
+							type="file"
+							className="form-control"
+							id="image"
+							name="image"
+							placeholder="تحميل الصورة"
+							// value={ads.image}
+							onChange={(e) => setImageUpload(e.target.files[0])}
+							required
+						/>
+					</div>
+				</div>
+
+				<div className="form-group mb-2">
 					<label htmlFor="description" className="form-label">
 						الوصف
 					</label>
@@ -94,7 +128,11 @@ const EditAds = ({ getId }) => {
 					</div>
 				</div>
 
-				<Button title="تعديل شركة" className="btn-info mt-2" />
+				{!isLoading ? (
+					<Button title="تعديل الاعلان" className="btn-info mt-2" />
+				) : (
+					<Spinner size="md" color="#03213d" />
+				)}
 			</form>
 		</>
 	) : (

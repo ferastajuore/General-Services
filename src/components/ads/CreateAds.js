@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
-import { Button } from '@/components/UI';
-import { db } from '@/middleware/firebase';
+import { Button, Spinner } from '@/components/UI';
+import { db, storage } from '@/middleware/firebase';
 import { useRouter } from 'next/router';
 
 const CreateAds = () => {
 	const collectionRef = collection(db, 'ads');
 	const router = useRouter();
+
+	// useState
+	const [imageUpload, setImageUpload] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const [ads, setAds] = useState({
 		title: '',
 		description: '',
@@ -28,13 +34,23 @@ const CreateAds = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await addDoc(collectionRef, { ...ads, date: serverTimestamp() });
+			setIsLoading(true);
+
+			if (imageUpload === null) return;
+
+			const imageRef = ref(storage, `ads/${imageUpload.name + v4()}`);
+
+			await uploadBytes(imageRef, imageUpload);
+			const getURL = await getDownloadURL(imageRef);
+
+			await addDoc(collectionRef, { ...ads, date: serverTimestamp(), image: getURL });
 			setMassage({ status: 'success', text: 'تم اضافة اعلان بنجاح' });
 
 			setTimeout(() => {
 				router.reload();
 				setAds('');
 				setMassage('');
+				setIsLoading(false);
 			}, 2000);
 		} catch (err) {
 			console.log(err);
@@ -49,7 +65,7 @@ const CreateAds = () => {
 
 			<form onSubmit={handleSubmit}>
 				<div className="form-group mb-2">
-					<label htmlFor="title" className="form-label float-end">
+					<label htmlFor="title" className="form-label">
 						العنوان
 					</label>
 					<div className="input-group">
@@ -66,7 +82,24 @@ const CreateAds = () => {
 				</div>
 
 				<div className="form-group mb-2">
-					<label htmlFor="description" className="form-label float-end">
+					<label htmlFor="image" className="form-label">
+						تحميل الصورة
+					</label>
+					<div className="input-group">
+						<input
+							type="file"
+							className="form-control"
+							id="image"
+							name="image"
+							placeholder="تحميل الصورة"
+							onChange={(e) => setImageUpload(e.target.files[0])}
+							required
+						/>
+					</div>
+				</div>
+
+				<div className="form-group mb-2">
+					<label htmlFor="description" className="form-label">
 						الوصف
 					</label>
 					<div className="input-group">
@@ -83,7 +116,11 @@ const CreateAds = () => {
 					</div>
 				</div>
 
-				<Button title="اضافة اعلان" className="btn-info mt-2" />
+				{!isLoading ? (
+					<Button title="اضافة اعلان" className="btn-info mt-2" />
+				) : (
+					<Spinner size="md" color="#03213d" />
+				)}
 			</form>
 		</>
 	);

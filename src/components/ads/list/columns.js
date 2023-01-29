@@ -18,7 +18,14 @@ import EditAds from '../EditAds';
 
 // Custom Cell  for image column
 const CustomCellImage = ({ value }) => {
-	return <Image src="/assets/image/Housing.png" alt="company" width={30} height={30} />;
+	return (
+		<Image
+			src={value ? value : '/assets/image/Housing.png'}
+			alt="company"
+			width={50}
+			height={50}
+		/>
+	);
 };
 
 // Custom cell for controle column

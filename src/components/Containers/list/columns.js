@@ -18,7 +18,14 @@ import EditContainer from '../EditContainer';
 
 // Custom Cell  for image column
 const CustomCellImage = ({ value }) => {
-	return <Image src="/assets/image/Housing.png" alt="company" width={30} height={30} />;
+	return (
+		<Image
+			src={value ? value : '/assets/image/Housing.png'}
+			alt="company"
+			width={50}
+			height={50}
+		/>
+	);
 };
 
 // Custom cell for controle column
@@ -95,7 +102,7 @@ export const tablePropsInit = {
 			key: 'image',
 			title: 'الصورة',
 			dataType: DataType.String,
-			style: { width: 200 },
+			style: { width: 150 },
 		},
 		{
 			key: 'city',

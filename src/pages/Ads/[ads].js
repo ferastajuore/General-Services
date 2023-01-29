@@ -8,7 +8,7 @@ import { Spinner } from '@/components/UI';
 import { db } from '@/middleware/firebase';
 import { AdminLayout } from '@/components/layout';
 
-const ViewAds = ({ activeModel, closeModel }) => {
+const ViewAds = () => {
 	const { query } = useRouter();
 	const [ads, setCompany] = useState({});
 
@@ -37,10 +37,10 @@ const ViewAds = ({ activeModel, closeModel }) => {
 				<div className="card-body">
 					<div className="d-flex justify-content-center mb-2">
 						<Image
-							src="/assets/image/news.png"
+							src={ads ? ads.image : '/assets/image/Housing.png'}
 							alt={ads.title}
-							width={200}
-							height={200}
+							width={300}
+							height={300}
 						/>
 					</div>
 					<div className="row">
