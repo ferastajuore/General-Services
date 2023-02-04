@@ -46,7 +46,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="name" className="form-label">
+								<label htmlFor="name" className="form-label text-black">
 									اسم الشركة
 								</label>
 								<div className="input-group">
@@ -67,7 +67,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="email" className="form-label">
+								<label htmlFor="email" className="form-label text-black">
 									البريد الالكتروني
 								</label>
 								<div className="input-group">
@@ -88,7 +88,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="phone" className="form-label">
+								<label htmlFor="phone" className="form-label text-black">
 									رقم الهاتف
 								</label>
 								<div className="input-group">
@@ -109,7 +109,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="city" className="form-label">
+								<label htmlFor="city" className="form-label text-black">
 									المدينة
 								</label>
 								<div className="input-group">
@@ -130,7 +130,7 @@ const ViewCompany = ({ activeModel, closeModel }) => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="description" className="form-label">
+								<label htmlFor="description" className="form-label text-black">
 									اقسام الشركة
 								</label>
 

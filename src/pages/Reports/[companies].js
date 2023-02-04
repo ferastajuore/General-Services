@@ -36,17 +36,17 @@ const ViewCompany = () => {
 			const getData = async () => {
 				const docRef = doc(db, 'reporting-service', query.companies);
 				const docSnap = await getDoc(docRef);
-
 				setReport(docSnap.data());
 			};
 			getData();
 		}
-	}, []);
+	}, [query.companies]);
 
 	// Handler Sender
 	const handleSender = async (queryId, companyId, companyName) => {
 		try {
 			const updateReport = doc(db, 'reporting-service', queryId);
+			console.log(updateReport);
 			await updateDoc(updateReport, {
 				assignedCompany: companyName,
 				companyId,

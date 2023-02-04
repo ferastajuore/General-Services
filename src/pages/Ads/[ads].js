@@ -45,7 +45,7 @@ const ViewAds = () => {
 					</div>
 					<div className="row">
 						<div className="form-group mb-2">
-							<label htmlFor="title" className="form-label float-end">
+							<label htmlFor="title" className="form-label">
 								العنوان
 							</label>
 							<div className="input-group">
@@ -64,7 +64,7 @@ const ViewAds = () => {
 						</div>
 
 						<div className="form-group mb-2">
-							<label htmlFor="description" className="form-label float-end">
+							<label htmlFor="description" className="form-label">
 								الوصف
 							</label>
 							<div className="input-group">

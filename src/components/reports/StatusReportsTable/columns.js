@@ -1,34 +1,42 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-import { Menu, MenuList, MenuItem, MenuButton } from '@chakra-ui/react';
-import { CgMenuRound } from 'react-icons/cg';
-import { TbEdit } from 'react-icons/tb';
-import { MdDelete } from 'react-icons/md';
 import { DataType, PagingPosition, SortingMode } from 'ka-table/enums';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { useRouter } from 'next/router';
-import { FiEye } from 'react-icons/fi';
+import { doc, getDoc } from 'firebase/firestore';
 
 import { db } from '@/middleware/firebase';
 import { Button } from '@/components/UI';
 
 // Custom cell for statis column
 const CustomCellStatus = ({ value }) => {
+	const [report, setReport] = useState({});
+
+	useEffect(() => {
+		// Get company by id
+		const getData = async () => {
+			const docRef = doc(db, 'reporting-service', value);
+			const docSnap = await getDoc(docRef);
+
+			setReport(docSnap.data());
+		};
+		getData();
+	}, [value]);
+
 	return (
 		<div className="d-flex justify-content-around">
 			<div
 				className={`h5 btn ${
-					(value === 0 && 'btn-success') ||
-					(value === 1 && 'btn-warning') ||
-					(value === 2 && 'btn-danger')
+					(report.companyStatus === 0 && 'btn-success') ||
+					(report.companyStatus === 1 && 'btn-warning') ||
+					(report.companyStatus === 2 && 'btn-danger') ||
+					(report.companyStatus === 3 && 'btn-info')
 				}`}
 			>
-				{(value === 0 && 'تم قبول') ||
-					(value === 1 && 'قيد الانتظار') ||
-					(value === 2 && 'رفض')}
+				{(report.companyStatus === 0 && 'تم قبول') ||
+					(report.companyStatus === 1 && 'قيد الانتظار') ||
+					(report.companyStatus === 2 && 'رفض') ||
+					(report.companyStatus === 3 && 'تم تنفيد')}
 			</div>
-			{value !== 0 && (
+			{report.companyStatus !== 0 && report.companyStatus !== 3 && (
 				<Link href={`/Reports/${value}`}>
 					<Button
 						title="تعين شركة"
@@ -74,15 +82,10 @@ export const tablePropsInit = {
 			style: { width: 200 },
 		},
 		{
-			key: 'status',
+			key: 'id',
 			title: 'حالة البلاغ',
-			dataType: DataType.Number,
 			style: { width: 280 },
 		},
-		// {
-		// 	key: 'id',
-		// 	style: { width: 80, textAlign: 'center' },
-		// },
 	],
 	// data: dataTable,
 	paging: {
@@ -100,10 +103,10 @@ export const tablePropsInit = {
 		cellText: {
 			content: (props) => {
 				switch (props.column.key) {
-					case 'status':
+					// case 'status':
+					// 	return <CustomCellStatus {...props} />;
+					case 'id':
 						return <CustomCellStatus {...props} />;
-					// case 'id':
-					// 	return <CustomCellControle {...props} />;
 					// case 'password':
 					// 	return <CustomCellPassword {...props} />;
 				}

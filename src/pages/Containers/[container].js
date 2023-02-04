@@ -47,7 +47,7 @@ const ViewContainer = () => {
 					<div className="row">
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="city" className="form-label float-end">
+								<label htmlFor="city" className="form-label">
 									المدينة
 								</label>
 								<div className="input-group">
@@ -68,7 +68,7 @@ const ViewContainer = () => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="address" className="form-label float-end">
+								<label htmlFor="address" className="form-label">
 									العنوان
 								</label>
 								<div className="input-group">
@@ -89,7 +89,7 @@ const ViewContainer = () => {
 
 						<div className="col-sm-6">
 							<div className="form-group mb-2">
-								<label htmlFor="location" className="form-label float-end">
+								<label htmlFor="location" className="form-label">
 									الاحداثيات
 								</label>
 								<div className="input-group">

@@ -25,7 +25,9 @@ const StatusReportsTable = () => {
 		reports.map((data, index) => ({
 			title: data.title,
 			phone: data.senderPhone,
-			dateAdded: moment(data.dateAdded.toDate().toISOString()).format('YYYY-MM-DD'),
+			dateAdded: data.dateAdded
+				? moment(data.dateAdded.toDate().toISOString()).format('YYYY-MM-DD')
+				: 0,
 			typeReport: data.typeReport,
 			assignedCompany: data.assignedCompany,
 			status: data.companyStatus,
