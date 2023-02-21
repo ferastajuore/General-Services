@@ -34,45 +34,53 @@ const Statistics = () => {
 	}, []);
 
 	return (
-		<div className="row mb-5">
+		<div className="statistics row mb-5" style={{ position: 'relative', margin: '50px 0' }}>
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-primary ">
-					<div className="card-body px-3 d-flex justify-content-around align-items-center">
-						<div>
-							{/* <i className="fa fa-users fa-5x"></i> */}
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-blue p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<FaUsers fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>المستخدمين</h4>
-							<h4>{counts.user && counts.user}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">المستخدمين</h4>
+							<h4 className="h4">{counts.user && counts.user}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-success ">
-					<div className="card-body px-3 d-flex justify-content-around align-items-center">
-						<div className="text-white">
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-pink p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<FaBuilding fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>الشركات الخاصة</h4>
-							<h4>{counts.company && counts.company}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">الشركات الخاصة</h4>
+							<h4 className="h4">{counts.company && counts.company}</h4>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div className="col-sm-6 col-lg-4">
-				<div className="card text-bg-danger ">
-					<div className="card-body px-3  d-flex justify-content-around align-items-center">
-						<div className="text-white">
+				<div className="card box-shadow-dark">
+					<div className="card-body">
+						<div
+							className="bg-green p-2 rounded box-shadow-dark"
+							style={{ position: 'absolute', top: '-30px', left: 20 }}
+						>
 							<FaExclamationCircle fontSize="5em" />
 						</div>
-						<div className="text-center text-white">
-							<h4>بلاغات هدا الشهر</h4>
-							<h4>{counts.report & counts.report}</h4>
+						<div className="text-center text-black" style={{ float: 'right' }}>
+							<h4 className="h5">بلاغات هدا الشهر</h4>
+							<h4 className="h4">{counts.report & counts.report}</h4>
 						</div>
 					</div>
 				</div>

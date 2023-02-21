@@ -95,7 +95,7 @@ const Sections = () => {
 	};
 
 	return (
-		<div className="managment-sections">
+		<div className="managment-sections box-shadow-dark">
 			<div className="card">
 				<div className="card-body">
 					<div className="sections-list mb-3">

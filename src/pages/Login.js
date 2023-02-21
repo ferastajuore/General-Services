@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { useRouter } from 'next/router';
-import { Button } from '@/components/UI';
+import { Button, Spinner } from '@/components/UI';
 import React, { useEffect, useState } from 'react';
 
 import { db } from '@/middleware/firebase';
@@ -11,6 +11,7 @@ const Login = () => {
 	const usersCollectionRef = collection(db, 'users');
 
 	const [user, setUser] = useState();
+	const [isLoading, setIsLoading] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [loggedIn, setLoggedIn] = useState({
 		phone: '',
@@ -60,9 +61,13 @@ const Login = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		setIsLoading(true);
+
 		if (_.isEmpty(loggedIn.phone) && _.isEmpty(loggedIn.password)) {
+			setIsLoading(false);
 			return setMassage({ status: 'error', text: 'يرجي ادخال رقم المستخدم وكملة المرور ❌' });
 		} else if (user.password !== loggedIn.password || user === undefined) {
+			setIsLoading(false);
 			return setMassage({ status: 'error', text: 'خطاء في رقم المستخدم او كلمة المرور ❌' });
 		}
 
@@ -76,14 +81,27 @@ const Login = () => {
 	};
 
 	return (
-		<div
-			className="d-flex justify-content-center align-items-center"
-			style={{ height: '100vh' }}
-		>
-			<div className="card text-bg-light" style={{ width: '40%' }}>
-				<div className="card-header text-center p-3 h5">تسجيل الدخول</div>
+		<div className="login">
+			<div className="row">
+				<div className="col-md-6 login-image d-flex justify-content-center align-items-center flex-column">
+					<div className="text-center">
+						<h2 className="text-white h3 fw-bold pb-2">التطوير هو العملة</h2>
+						<p className="text-white">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus
+							necessitatibus cupiditate tenetur non ullam eveniet saepe dignissimos
+							odit nostrum quae? Id quidem labore omnis sequi ut aliquam vero porro
+							commodi.
+						</p>
+					</div>
+				</div>
+				<div className="col-md-6 login-form d-flex justify-content-center align-items-center flex-column">
+					<div className="">
+						<h2 className="h1 fw-bold text-center">سجل دخولك</h2>
+						<p className="h6 text-center text-secondary">
+							قم بادخال رقم الهاتفك وكلمة المرور
+						</p>
+					</div>
 
-				<div className="card-body">
 					{(massage.status === 'success' && (
 						<div className="alert alert-success text-center">{massage.text}</div>
 					)) ||
@@ -92,10 +110,7 @@ const Login = () => {
 						))}
 
 					<form onSubmit={handleSubmit}>
-						<div className="form-group mb-2">
-							<label htmlFor="phone" className="form-label">
-								رقم الهاتف
-							</label>
+						<div className="form-group my-3">
 							<div className="input-group">
 								<input
 									type="text"
@@ -109,10 +124,7 @@ const Login = () => {
 							</div>
 						</div>
 
-						<div className="form-group mb-2">
-							<label htmlFor="password" className="form-label">
-								كلمة المرور
-							</label>
+						<div className="form-group my-3">
 							<div className="input-group">
 								<input
 									type="password"
@@ -126,13 +138,35 @@ const Login = () => {
 							</div>
 						</div>
 
-						<div className="d-grid gap-2 col-6 mx-auto">
-							<Button title="تسجيل الدخول" className="btn-info mt-2" />
-						</div>
+						{isLoading ? (
+							<Spinner />
+						) : (
+							<div className="d-grid gap-2 col-6 mx-auto">
+								<Button title="تسجيل الدخول" className="btn-info mt-2" />
+							</div>
+						)}
 					</form>
 				</div>
 			</div>
 		</div>
+		// <div
+		// className="d-flex justify-content-center align-items-center"
+		// style={{ height: '100vh' }}
+		// >
+		// 	<div className="card text-bg-light" style={{ width: '40%' }}>
+		// 		<div className="card-header text-center p-3 h5">تسجيل الدخول</div>
+
+		// 		<div className="card-body">
+		// 			{(massage.status === 'success' && (
+		// 				<div className="alert alert-success text-center">{massage.text}</div>
+		// 			)) ||
+		// 				(massage.status === 'error' && (
+		// 					<div className="alert alert-danger text-center">{massage.text}</div>
+		// 				))}
+
+		// 		</div>
+		// 	</div>
+		// </div>
 	);
 };
 

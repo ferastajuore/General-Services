@@ -18,7 +18,7 @@ const Sidebar = ({ collapsed, userData }) => {
 
 	return (
 		!isSSR && (
-			<aside className={`sidebar ${collapsed ? 'isClosed' : ''}`}>
+			<aside className={`sidebar box-shadow-dark ${collapsed ? 'isClosed' : ''}`}>
 				<div className="sidebar-menu">
 					<ul className="sidebar-list">
 						<>
