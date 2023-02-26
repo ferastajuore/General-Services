@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineDashboard } from 'react-icons/ai';
 import { FiTruck, FiUsers } from 'react-icons/fi';
 import { BsBuilding, BsHeadset, BsNewspaper } from 'react-icons/bs';
-// import { useTranslation } from 'react-i18next';
+import { ImNewspaper } from 'react-icons/im';
 import { useEffect, useState } from 'react';
 import { TbReport } from 'react-icons/tb';
 
@@ -66,7 +66,15 @@ const Sidebar = ({ collapsed, userData }) => {
 								<Link href="/Ads">
 									<div>
 										<BsNewspaper />
-										<span>الاعلانات</span>
+										<span>الاخبار</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Advertisement' ? 'active' : ''}>
+								<Link href="/Advertisement">
+									<div>
+										<ImNewspaper />
+										<span>اعلانات</span>
 									</div>
 								</Link>
 							</li>

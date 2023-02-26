@@ -117,7 +117,7 @@ const CreateAds = () => {
 				</div>
 
 				{!isLoading ? (
-					<Button title="اضافة اعلان" className="btn-info mt-2" />
+					<Button title="اضافة خبر" className="btn-info mt-2" />
 				) : (
 					<Spinner size="md" color="#03213d" />
 				)}

@@ -48,44 +48,6 @@ const Header = ({
 						/>
 					</div>
 					<nav className="user-nav">
-						<button className="user-nav__box" onClick={() => handleDarkMode(darkMode)}>
-							{darkMode ? (
-								<MdDarkMode fontSize="1.3em" />
-							) : (
-								<MdLightMode fontSize="1.3em" />
-							)}
-						</button>
-						{/* <button > */}
-						{/* <Menu>
-							<MenuButton className="user-nav__box">
-								<MdGTranslate fontSize="1.3em" />
-							</MenuButton>
-							<MenuList
-								style={{
-									minWidth: '60px',
-								}}
-							>
-								<MenuItem
-									style={{
-										color: '#000',
-										textAlign: 'center',
-									}}
-									onClick={() => handleDirection('RTL', 'ar')}
-								>
-									AR
-								</MenuItem>
-								<MenuItem
-									style={{
-										color: '#000',
-										textAlign: 'center',
-									}}
-									onClick={() => handleDirection('LTR', 'en')}
-								>
-									EN
-								</MenuItem>
-							</MenuList>
-						</Menu> */}
-
 						<Menu>
 							<MenuButton className="user-nav__info">
 								<div className="d-flex flex-row-reverse align-items-center">
@@ -93,18 +55,15 @@ const Header = ({
 										className="user-avata"
 										size="md"
 										name="Segun Adebayo"
-										src="https://bit.ly/code-beast"
+										src="/assets/image/avatar.png"
 										// src="/assets/images/team.png"
-									>
-										{/* {socket && <AvatarBadge boxSize="1em" bg="green.500" />} */}
-									</Avatar>
+									></Avatar>
 									{/* <h4>{userData && userData.name}</h4> */}
 									<h4>{userData?.name}</h4>
 								</div>
 							</MenuButton>
 
 							<MenuList>
-								<MenuItem style={{ color: '#000' }}>ملف الشخصي</MenuItem>
 								<MenuItem
 									style={{ color: '#000' }}
 									onClick={() => setIsLogout(!Logout)}
@@ -113,42 +72,11 @@ const Header = ({
 								</MenuItem>
 							</MenuList>
 						</Menu>
-						{/* </button> */}
-						{/* <div className="user-nav__info">
-							<button
-								className="button-toggle"
-								onClick={() => setIsAcitve(!isAcitve)}
-							>
-								
-							</button>
-							<div
-								className={`dorpdown ${
-									isAcitve ? 'is-active' : ''
-								}`}
-							>
-								<ul className="dorpdown-list">
-									<li className="dorpdown-item">
-										ملف الشخصي
-									</li>
-									<li className="dorpdown-item">الاعدادات</li>
-									<li
-										className="dorpdown-item"
-										onClick={() => setIsLogout(!Logout)}
-									>
-										الخروج
-									</li>
-								</ul>
-							</div>
-						</div> */}
 					</nav>
 				</div>
 			</header>
 		</>
 	);
 };
-
-// const mapDispatchToProps = {
-// 	isLogout,
-// };
 
 export default Header;

@@ -129,7 +129,7 @@ const EditAds = ({ getId }) => {
 				</div>
 
 				{!isLoading ? (
-					<Button title="تعديل الاعلان" className="btn-info mt-2" />
+					<Button title="تعديل خبر" className="btn-info mt-2" />
 				) : (
 					<Spinner size="md" color="#03213d" />
 				)}

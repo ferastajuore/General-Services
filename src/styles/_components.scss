@@ -437,12 +437,7 @@
 	padding: 20px 30px;
 
 	&-image {
-		background-image: linear-gradient(
-				to right bottom,
-				rgba($color-blue-light-1, 0.7),
-				rgba($color-pink-light, 0.7)
-			),
-			url(../../public/assets/image/city.jpg);
+		background-image: url(../../public/assets/image/logo.jpg);
 		height: 90vh;
 		background-size: cover;
 		background-position: center;

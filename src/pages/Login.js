@@ -83,17 +83,7 @@ const Login = () => {
 	return (
 		<div className="login">
 			<div className="row">
-				<div className="col-md-6 login-image d-flex justify-content-center align-items-center flex-column">
-					<div className="text-center">
-						<h2 className="text-white h3 fw-bold pb-2">التطوير هو العملة</h2>
-						<p className="text-white">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus
-							necessitatibus cupiditate tenetur non ullam eveniet saepe dignissimos
-							odit nostrum quae? Id quidem labore omnis sequi ut aliquam vero porro
-							commodi.
-						</p>
-					</div>
-				</div>
+				<div className="col-md-6 login-image d-flex justify-content-center align-items-center flex-column"></div>
 				<div className="col-md-6 login-form d-flex justify-content-center align-items-center flex-column">
 					<div className="">
 						<h2 className="h1 fw-bold text-center">سجل دخولك</h2>

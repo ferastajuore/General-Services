@@ -13,15 +13,15 @@ const Ads = () => {
 		<>
 			<AdminLayout>
 				<div className="dashboard">
-					<Header title="اعلانات" />
+					<Header title="الاخبار" />
 					<AdsTable />
 
-					<Modal title="أضافة المستخدم" isOpen={isOpen} onClose={onClose} btnRef={btnRef}>
+					<Modal title="أضافة خبر" isOpen={isOpen} onClose={onClose} btnRef={btnRef}>
 						<CreateAds />
 					</Modal>
 
 					<button className="btn btn-info" ref={btnRef} onClick={onOpen}>
-						أضافة الاعلان
+						أضافة خبر
 					</button>
 				</div>
 			</AdminLayout>

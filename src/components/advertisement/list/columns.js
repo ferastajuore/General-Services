@@ -12,9 +12,7 @@ import { useRouter } from 'next/router';
 import { FiEye } from 'react-icons/fi';
 
 import { db } from '@/middleware/firebase';
-import { Modal } from '@/components/UI';
-
-import EditAds from '../EditAds';
+import { Button, Modal } from '@/components/UI';
 
 // Custom Cell  for image column
 const CustomCellImage = ({ value }) => {
@@ -22,8 +20,8 @@ const CustomCellImage = ({ value }) => {
 		<Image
 			src={value ? value : '/assets/image/Housing.png'}
 			alt="company"
-			width={50}
-			height={50}
+			width={120}
+			height={120}
 		/>
 	);
 };
@@ -45,7 +43,7 @@ const CustomCellControle = ({ value }) => {
 	// handler Delete element
 	const handleDelete = async (id) => {
 		try {
-			if (confirm('هل انت متاكد تريد حدف اخبار ؟')) {
+			if (confirm('هل انت متاكد تريد حدف اعلان ؟')) {
 				const document = doc(db, 'ads', id);
 				await deleteDoc(document);
 
@@ -60,37 +58,12 @@ const CustomCellControle = ({ value }) => {
 
 	return (
 		<>
-			<Menu>
-				<MenuButton>
-					<CgMenuRound fontSize="1.8em" />
-				</MenuButton>
-				<MenuList>
-					<Link href={`/Ads/${value}`}>
-						<MenuItem icon={<FiEye fontSize="1.8em" color="#333" />}>
-							عرض اخبار
-						</MenuItem>
-					</Link>
-					<MenuItem
-						icon={<TbEdit fontSize="1.8em" color="#333" />}
-						onClick={() => handleModal(onOpen, value)}
-					>
-						تعديل اخبار
-					</MenuItem>
-					<MenuItem
-						icon={<MdDelete fontSize="1.8em" color="#333" />}
-						onClick={() => handleDelete(value)}
-					>
-						حدف اخبار
-					</MenuItem>
-				</MenuList>
-			</Menu>
-			{getId && (
-				<>
-					<Modal title="تعديل الاخبار" isOpen={isOpen} onClose={onClose}>
-						<EditAds getId={getId} />
-					</Modal>
-				</>
-			)}
+			<Button />
+			<Button
+				title="حدف اعلان"
+				className="btn-danger mt-2"
+				onClick={() => handleDelete(value)}
+			/>
 		</>
 	);
 };
@@ -102,13 +75,7 @@ export const tablePropsInit = {
 			key: 'image',
 			title: 'الصورة',
 			dataType: DataType.String,
-			style: { width: 150 },
-		},
-		{
-			key: 'title',
-			title: 'العنوان',
-			dataType: DataType.String,
-			style: { width: 200 },
+			style: { width: 100 },
 		},
 		{
 			key: 'date',
@@ -118,7 +85,7 @@ export const tablePropsInit = {
 		},
 		{
 			key: 'id',
-			style: { width: 80, textAlign: 'center' },
+			style: { width: 100, textAlign: 'center' },
 		},
 	],
 	// data: dataTable,
