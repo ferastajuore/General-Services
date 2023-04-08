@@ -25,9 +25,7 @@ const NewReportsTable = () => {
 		reports.map((data, index) => ({
 			title: data.title,
 			phone: data.senderPhone,
-			dateAdded: data.dateAdded
-				? moment(data.dateAdded.toDate().toISOString()).format('YYYY-MM-DD')
-				: 0,
+			dateAdded: data.dateAdded ? data.dateAdded : 0,
 			typeReport: data.typeReport,
 			location: data.location,
 			status: data.companyStatus,

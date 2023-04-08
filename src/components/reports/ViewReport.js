@@ -22,17 +22,17 @@ const ViewReport = ({ activeModel, closeModel, getId }) => {
 	}, []);
 
 	return !_.isEmpty(report) ? (
-		<Modal2 title="عرض البلاغ" isActive={activeModel} isClosed={closeModel}>
+		<>
 			<div className="d-flex justify-content-center mb-2">
 				<Image
 					src="/assets/image/company.png"
 					alt={report.title}
-					width={200}
-					height={200}
+					width={150}
+					height={150}
 				/>
 			</div>
 			<div className="row">
-				<div className="col-sm-6">
+				<div className="col-sm-12">
 					<div className="form-group mb-2">
 						<label className="form-label float-start">عنوان البلاغ</label>
 						<div className="input-group">
@@ -47,7 +47,7 @@ const ViewReport = ({ activeModel, closeModel, getId }) => {
 					</div>
 				</div>
 
-				<div className="col-sm-6">
+				<div className="col-sm-12">
 					<div className="form-group mb-2">
 						<label className="form-label float-start">رقم الهاتف المرسل</label>
 						<div className="input-group">
@@ -62,7 +62,7 @@ const ViewReport = ({ activeModel, closeModel, getId }) => {
 					</div>
 				</div>
 
-				<div className="col-sm-6">
+				<div className="col-sm-12">
 					<div className="form-group mb-2">
 						<label className="form-label float-start">نوع بلاغ</label>
 						<div className="input-group">
@@ -77,7 +77,7 @@ const ViewReport = ({ activeModel, closeModel, getId }) => {
 					</div>
 				</div>
 
-				<div className="col-sm-6">
+				<div className="col-sm-12">
 					<div className="form-group mb-2">
 						<label className="form-label float-start">الاحداتيات</label>
 						<div className="input-group">
@@ -108,7 +108,7 @@ const ViewReport = ({ activeModel, closeModel, getId }) => {
 					</div>
 				</div>
 			</div>
-		</Modal2>
+		</>
 	) : (
 		<Spinner />
 	);

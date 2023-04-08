@@ -6,6 +6,7 @@ import { BsBuilding, BsHeadset, BsNewspaper } from 'react-icons/bs';
 import { ImNewspaper } from 'react-icons/im';
 import { useEffect, useState } from 'react';
 import { TbReport } from 'react-icons/tb';
+import { MdAddLocationAlt } from 'react-icons/md';
 
 const Sidebar = ({ collapsed, userData }) => {
 	const router = useRouter();
@@ -35,6 +36,14 @@ const Sidebar = ({ collapsed, userData }) => {
 									<div>
 										<FiUsers />
 										<span>المستخدمون</span>
+									</div>
+								</Link>
+							</li>
+							<li className={router.pathname == '/Areas' ? 'active' : ''}>
+								<Link href="/Areas">
+									<div>
+										<MdAddLocationAlt />
+										<span>المناطق</span>
 									</div>
 								</Link>
 							</li>

@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { DataType, PagingPosition, SortingMode } from 'ka-table/enums';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 
 import { db } from '@/middleware/firebase';
 import { Button } from '@/components/UI';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 // Custom cell for statis column
 const CustomCellStatus = ({ value }) => {
@@ -48,9 +49,62 @@ const CustomCellStatus = ({ value }) => {
 	);
 };
 
+const CustomCellFavourite = ({ value }) => {
+	const [isFavourite, setIsFavourite] = useState(false);
+
+	useEffect(() => {
+		// Get company by id
+		const getData = async () => {
+			const docRef = doc(db, 'reporting-service', value);
+			const docSnap = await getDoc(docRef);
+
+			setIsFavourite(docSnap.data().favourite);
+		};
+		getData();
+	}, [value]);
+
+	// handler Delete element
+	const handleClick = async (getId, data) => {
+		try {
+			const updateReport = doc(db, 'reporting-service', getId);
+			await updateDoc(updateReport, { favourite: data });
+
+			onSnapshot(updateReport, (querySnapshot) => {
+				setIsFavourite(querySnapshot.data().favourite);
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	return (
+		<div className="d-flex justify-content-around">
+			{isFavourite ? (
+				<AiFillStar
+					fontSize="1.8em"
+					color="#ffc107"
+					onClick={() => handleClick(value, false)}
+					style={{ cursor: 'pointer' }}
+				/>
+			) : (
+				<AiOutlineStar
+					fontSize="1.8em"
+					onClick={() => handleClick(value, true)}
+					style={{ cursor: 'pointer' }}
+				/>
+			)}
+		</div>
+	);
+};
+
 // Table Props options
 export const tablePropsInit = {
 	columns: [
+		{
+			key: 'id2',
+			title: 'المفضلة',
+			style: { width: 95 },
+		},
 		{
 			key: 'title',
 			title: 'العنوان',
@@ -103,12 +157,10 @@ export const tablePropsInit = {
 		cellText: {
 			content: (props) => {
 				switch (props.column.key) {
-					// case 'status':
-					// 	return <CustomCellStatus {...props} />;
+					case 'id2':
+						return <CustomCellFavourite {...props} />;
 					case 'id':
 						return <CustomCellStatus {...props} />;
-					// case 'password':
-					// 	return <CustomCellPassword {...props} />;
 				}
 			},
 		},

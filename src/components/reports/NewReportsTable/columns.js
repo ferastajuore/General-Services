@@ -5,9 +5,10 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
 import { db } from '@/middleware/firebase';
-import { Button } from '@/components/UI';
+import { Button, Modal } from '@/components/UI';
 
 import ViewReport from '../ViewReport';
+import { useDisclosure } from '@chakra-ui/react';
 
 // Custom cell for controle column
 const CustomCellControle = ({ value }) => {
@@ -15,14 +16,18 @@ const CustomCellControle = ({ value }) => {
 
 	// useState
 	const [isActiveModel, setIsActiveModel] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [getId, setGetId] = useState('');
 
 	// handle modal or update
 	const handleModalUpdate = (isAcitve, id) => {
-		console.log(id);
+		// console.log(id);
 		setGetId(id);
-		setIsActiveModel(!isAcitve);
+		onOpen(isAcitve);
+		// setIsActiveModel(!isAcitve);
 	};
+
+	// console.log(getId);
 
 	// handler Delete element
 	const handleDelete = async (id) => {
@@ -51,19 +56,19 @@ const CustomCellControle = ({ value }) => {
 				</Link>
 				<Button
 					title="تفاصيل"
-					onClick={() => handleModalUpdate(isActiveModel, value)}
+					onClick={() => handleModalUpdate(onOpen, value)}
 					style={{ backgroundColor: '#ffa500', color: '#FFF' }}
 				/>
 				<Button title="حدف" onClick={() => handleDelete(value)} className="btn-danger" />
 			</div>
 			{getId && (
-				<>
+				<Modal isOpen={isOpen} onClose={onClose}>
 					<ViewReport
 						activeModel={isActiveModel}
 						closeModel={handleModalUpdate}
 						getId={getId}
 					/>
-				</>
+				</Modal>
 			)}
 		</>
 	);

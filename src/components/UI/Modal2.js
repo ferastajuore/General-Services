@@ -12,29 +12,23 @@ const modal = ({ children, title, isActive, isClosed }) => {
 				isClosed(isActive);
 			}
 		});
-
 	}, [isClosed, isActive]);
 
 	return (
-			<div className={`modal ${isActive ? 'is-active' : ''}`}>
-				<div
-					className="modal-background"
-					onClick={() => isClosed(isActive)}
-				></div>
-				<div className="modal-card">
-					<header className="modal-card-head">
-						<p className="modal-card-title text-center text-capitalize">
-							{title}
-						</p>
-						<button
-							className="delete"
-							aria-label="close"
-							onClick={() => isClosed(isActive)}
-						></button>
-					</header>
-					<section className="modal-card-body">{children}</section>
-				</div>
+		<div className={`modal2 ${isActive ? 'is-active' : ''}`}>
+			<div className="modal-background" onClick={() => isClosed(isActive)}></div>
+			<div className="modal-card">
+				<header className="modal-card-head">
+					<p className="modal-card-title text-center text-capitalize">{title}</p>
+					<button
+						className="delete"
+						aria-label="close"
+						onClick={() => isClosed(isActive)}
+					></button>
+				</header>
+				<section className="modal-card-body">{children}</section>
 			</div>
+		</div>
 	);
 };
 
