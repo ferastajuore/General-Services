@@ -42,7 +42,7 @@ const Statistics = () => {
 							className="bg-blue p-2 rounded box-shadow-dark"
 							style={{ position: 'absolute', top: '-30px', left: 20 }}
 						>
-							<FaUsers fontSize="5em" />
+							<FaUsers fontSize="5em" color="#FFF" />
 						</div>
 						<div className="text-center text-black" style={{ float: 'right' }}>
 							<h4 className="h5">المستخدمين</h4>
@@ -59,7 +59,7 @@ const Statistics = () => {
 							className="bg-pink p-2 rounded box-shadow-dark"
 							style={{ position: 'absolute', top: '-30px', left: 20 }}
 						>
-							<FaBuilding fontSize="5em" />
+							<FaBuilding fontSize="5em" color="#FFF" />
 						</div>
 						<div className="text-center text-black" style={{ float: 'right' }}>
 							<h4 className="h5">الشركات الخاصة</h4>
@@ -76,7 +76,7 @@ const Statistics = () => {
 							className="bg-green p-2 rounded box-shadow-dark"
 							style={{ position: 'absolute', top: '-30px', left: 20 }}
 						>
-							<FaExclamationCircle fontSize="5em" />
+							<FaExclamationCircle fontSize="5em" color="#FFF" />
 						</div>
 						<div className="text-center text-black" style={{ float: 'right' }}>
 							<h4 className="h5">بلاغات هدا الشهر</h4>

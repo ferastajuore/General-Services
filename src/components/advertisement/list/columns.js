@@ -44,7 +44,7 @@ const CustomCellControle = ({ value }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('هل انت متاكد تريد حدف اعلان ؟')) {
-				const document = doc(db, 'ads', id);
+				const document = doc(db, 'advertisement', id);
 				await deleteDoc(document);
 
 				setTimeout(() => {
