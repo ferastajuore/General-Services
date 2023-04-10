@@ -50,7 +50,7 @@ const CustomCellStatus = ({ value }) => {
 };
 
 const CustomCellFavourite = ({ value }) => {
-	const [isFavourite, setIsFavourite] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(false);
 
 	useEffect(() => {
 		// Get company by id
@@ -58,7 +58,7 @@ const CustomCellFavourite = ({ value }) => {
 			const docRef = doc(db, 'reporting-service', value);
 			const docSnap = await getDoc(docRef);
 
-			setIsFavourite(docSnap.data().favourite);
+			setIsFavorite(docSnap.data().favorite);
 		};
 		getData();
 	}, [value]);
@@ -67,10 +67,10 @@ const CustomCellFavourite = ({ value }) => {
 	const handleClick = async (getId, data) => {
 		try {
 			const updateReport = doc(db, 'reporting-service', getId);
-			await updateDoc(updateReport, { favourite: data });
+			await updateDoc(updateReport, { favorite: data });
 
 			onSnapshot(updateReport, (querySnapshot) => {
-				setIsFavourite(querySnapshot.data().favourite);
+				setIsFavorite(querySnapshot.data().favorite);
 			});
 		} catch (err) {
 			console.log(err);
@@ -79,7 +79,7 @@ const CustomCellFavourite = ({ value }) => {
 
 	return (
 		<div className="d-flex justify-content-around">
-			{isFavourite ? (
+			{isFavorite ? (
 				<AiFillStar
 					fontSize="1.8em"
 					color="#ffc107"

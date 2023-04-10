@@ -32,7 +32,7 @@ const CustomCellControle = ({ value }) => {
 	const handleDelete = async (id) => {
 		try {
 			if (confirm('هل انت متاكد تريد حدف رسالة ؟')) {
-				const document = doc(db, 'Services', id);
+				const document = doc(db, 'services', id);
 				await deleteDoc(document);
 
 				setTimeout(() => {
