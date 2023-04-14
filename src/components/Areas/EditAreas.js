@@ -20,23 +20,23 @@ const EditCompany = ({ getId }) => {
 		text: '',
 	});
 
-	// useEffect(() => {
-	// 	// Get company by id
-	// 	const getData = async () => {
-	// 		const docRef = doc(db, 'areas', getId);
-	// 		const docSnap = await getDoc(docRef);
+	useEffect(() => {
+		// Get company by id
+		const getData = async () => {
+			const docRef = doc(db, 'areas', getId);
+			const docSnap = await getDoc(docRef);
 
-	// 		setCompany(docSnap.data());
-	// 	};
-	// 	getData();
+			setCompany(docSnap.data());
+		};
+		getData();
 
-	// 	// Get All Sections
-	// 	const getAllSections = async () => {
-	// 		const data = await getDocs(sectionCollectionRef);
-	// 		setSections(data.docs.map((doc) => ({ label: doc.data().name, value: doc.id })));
-	// 	};
-	// 	getAllSections();
-	// }, []);
+		// Get All Sections
+		// const getAllSections = async () => {
+		// 	const data = await getDocs(sectionCollectionRef);
+		// 	setSections(data.docs.map((doc) => ({ label: doc.data().name, value: doc.id })));
+		// };
+		// getAllSections();
+	}, []);
 
 	// Handler Change
 	const handleChange = (e) => {
@@ -52,11 +52,10 @@ const EditCompany = ({ getId }) => {
 			const updateCompany = doc(db, 'areas', getId);
 			await updateDoc(updateCompany, company);
 
-			setMassage({ status: 'success', text: 'تم تعديل مستخدم بنجاح' });
+			setMassage({ status: 'success', text: 'تم تعديل منطقة بنجاح' });
 
 			setTimeout(() => {
 				router.reload();
-				closeModel(activeModel);
 			}, 2000);
 		} catch (err) {
 			console.log(err);

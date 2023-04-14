@@ -68,7 +68,7 @@ const CustomCellControle = ({ value }) => {
 			</Menu>
 			{getId && (
 				<>
-					<Modal title="تعديل شركة" isOpen={isOpen} onClose={onClose}>
+					<Modal title="تعديل المنطقة" isOpen={isOpen} onClose={onClose}>
 						<EditAreas getId={getId} />
 					</Modal>
 				</>
